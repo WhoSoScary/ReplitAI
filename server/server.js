@@ -33,8 +33,9 @@ app.post('/', async (req, res) => {
   top_p: 1,
   frequency_penalty: 0,
   presence_penalty: 0,
-  instruction: "If the Human says Hello respond with Shut up \nIf the Human says Bye respond with Come Back\nIf the Human says none of these say I dont wanna answer you",
-});
+  input: "What day of the wek is it?",
+  instruction: "Fix the spelling mistakes",
+   });
 
     res.status(200).send({
       bot: response.data.choices[0].text
