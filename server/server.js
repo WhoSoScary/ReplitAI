@@ -27,7 +27,7 @@ app.post('/', async (req, res) => {
 const input = "What day of the wek is it?";
     const instruct = "Fix the spelling mistakes";
     
-   const response = await openai.createCompletion({
+   const response = await openai.createEdit({
   model: "text-davinci-003",
   prompt: `${prompt}`,
   temperature: 0,
