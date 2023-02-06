@@ -27,7 +27,7 @@ app.post('/', async (req, res) => {
 
    const response = await openai.createCompletion({
   model: "text-davinci-003",
-  prompt: "Correct this to standard English:\n\nShe no went to the market.",
+  prompt: "If the Human says Hello respond with Shut up \nIf the Human says Bye respond with Come Back\nIf the Human says none of these say I dont wanna answer you",
   temperature: 0,
   max_tokens: 60,
   top_p: 1,
