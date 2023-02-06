@@ -24,7 +24,9 @@ app.get('/', async (req, res) => {
 app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
-
+const input = "What day of the wek is it?";
+    const instruct = "Fix the spelling mistakes";
+    
    const response = await openai.createCompletion({
   model: "text-davinci-003",
   prompt: `${prompt}`,
@@ -33,8 +35,8 @@ app.post('/', async (req, res) => {
   top_p: 1,
   frequency_penalty: 0,
   presence_penalty: 0,
-  input: "What day of the wek is it?",
-  instruction: "Fix the spelling mistakes",
+  input: `${input}`,
+  instruction: `${instruct}`,
    });
 
     res.status(200).send({
