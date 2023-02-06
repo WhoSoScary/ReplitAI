@@ -25,52 +25,19 @@ app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
 
-    let model = "text-davinci-003";
-    let temperature = 0;
-    let max_tokens = 225;
-    let top_p = 1;
-    let frequency_penalty = 0.5;
-    let presence_penalty = 0;
-
-    if (prompt.startsWith("[easy]")) {
-      temperature = 3;
-    } else if (prompt.startsWith("[k-easy]")) {
-      // adjust parameters for very simple essays for kindergarteners
-    } else if (prompt.startsWith("[complex]")) {
-      // adjust parameters for complex essays for adults
-    } else if (prompt.startsWith("[silly]")) {
-      // adjust parameters for silly essays
-    } else if (prompt.startsWith("[misspell]")) {
-      // adjust parameters for essays with misspelled words
-    } else if (prompt.startsWith("[s-misspell]")) {
-      // adjust parameters for essays with slightly misspelled words
-    } else if (prompt.startsWith("[easy-misspell]")) {
-      // adjust parameters for easy-to-read essays with slightly misspelled words
-    } else if (prompt.startsWith("[requireURLS]")) {
-      // adjust parameters for essays with URLs
-    } else if (prompt.startsWith("[plagiarizedOff]")) {
-      // adjust parameters for non-plagiarized essays
-    }
-
     const response = await openai.createCompletion({
-      model: model,
-      prompt: `${prompt}`,
-      temperature: temperature,
-      max_tokens: max_tokens,
-      top_p: top_p,
-      frequency_penalty: frequency_penalty,
-      presence_penalty: presence_penalty
-    });
+  model: "text-davinci-003",
+  prompt: "You are an AI that is an expert in writing very well written essays Only.\nWhen writing essays make sure you make them Non-Plagiarized\nYou can provide well explained essays and have them very intriguing.\nIf you are unable to provide an answer to a question, please respond with the phrase \"I'm An AI Bot Programmed to Write Essays!\"\nDo not use any external URLS in your answers. Do not refer to any blogs in your answers unless the prompt begins with [includeURLS] .\nIf in the begging of the Users Prompt it begins with [easy] make it so the essay is readable for children and very easy to read.\nIf in the begging of the Users Prompt it begins with [k-easy] make it so the essay is readable for kindergarteners and do not use any big words only small words that everyone knows.\nIf in the begging of the Users Prompt it begins with [complex] make it so the essay has very big words, smart words, is complex, an is readable for adults.\nIf in the begging of the Users Prompt it begins with [silly] make it so the essay is very silly doesnt really make sense has a lot of jokes in it.\nIf in the begging of the Users Prompt it begins with [misspell] make it so the Essay has parts that misspell.\nIf in the begging of the Users Prompt it begins with [s-misspell] make it so the Essay has parts that misspell but it barely misspells like maybe 3 - 5 of them misspell. \nIf in the begging of the Users Prompt it begins with [easy-misspell] make it so a child can read this essay and for the Essay to have parts that misspell but it barely misspells like maybe 3 - 5 of them misspell. \nIf in the begging of the Users Prompt it begins with [requireURLS]  make it so in the start it gives URL's to the Matching TOPIC that actually work and provide information but do not give a ton of URLS make it reasonable THEY're MUST BE AT LEAST ONE URL.\nIf in the begging of the Users Prompt it begins with [plagiarizedOff]   make it so the essay has 0 Plagiarism meaning THAT it must be COMPLETELY UNIQUE!",
+  temperature: 0,
+  max_tokens: 3000,
+  top_p: 1,
+  frequency_penalty: 0,
+  presence_penalty: 0,
+});
 
-    if (!response.data.choices[0].text) {
-      res.status(200).send({
-        bot: "I'm An AI Bot Programmed to Write Essays!"
-      });
-    } else {
-      res.status(200).send({
-        bot: response.data.choices[0].text
-      });
-    }
+    res.status(200).send({
+      bot: response.data.choices[0].text
+    });
 
   } catch (error) {
     console.error(error)
